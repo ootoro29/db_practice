@@ -7,6 +7,6 @@ export const GET = async (res:NextApiResponse,req:NextApiRequest) => {
         const user = await prisma.user.findUnique({where:{email}});
         return res.status(200).json(user);
     } catch {
-
+        return null;
     }
 }

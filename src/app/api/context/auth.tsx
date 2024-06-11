@@ -7,6 +7,7 @@ import {
     useEffect,
     useState,
 } from "react";
+import { prisma } from "@/db";
 
 type User = {
     name:string;
@@ -32,6 +33,13 @@ export const AuthProvider = async({children}:{children:ReactNode}) => {
             email:session.user.email || "",
             image:session.user.image || ""
         }
+        prisma.user.create({
+            data:{
+                email:user.email,
+                name:user.name,
+                image:user.image,
+            }
+        });
         return user;
     }
     return <AuthContext.Provider value = {sessionUser()}>{children}</AuthContext.Provider>
